@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17152b">
+<title>สนับสนุน ZoulZen Memory</title>
+<style>
+:root{--ink:#17152b;--purple:#7655d9;--muted:#77758a;--line:#e9e7f1;--bg:#f7f7fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(135deg,#17152b,#30245a);color:white;padding:32px 18px 38px;text-align:center}
+.brand{font-weight:900;letter-spacing:3px;font-size:18px;color:#cfc6ff}
+h1{margin:10px 0 5px;font-size:clamp(27px,7vw,38px)}header p{margin:0;color:#d8d3eb}
+main{max-width:620px;margin:-18px auto 40px;padding:0 14px}
+.card{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:0 8px 28px #21194b0b}
+h2{font-size:19px;margin:0 0 14px}.sub{font-size:13px;color:var(--muted);line-height:1.6}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+button,.amount{font:inherit;cursor:pointer}
+.amount{border:1px solid var(--line);background:white;border-radius:12px;padding:12px 4px;font-weight:700;color:var(--ink)}
+.amount.active{border:2px solid var(--purple);background:#f3efff;color:var(--purple)}
+input[type=number],input[type=text]{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;font:inherit;margin-top:10px}
+.method{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:13px;margin:9px 0;cursor:pointer}
+.method input{accent-color:var(--purple);width:18px;height:18px}
+.method strong{display:block}.method small{color:var(--muted)}
+.primary{width:100%;border:0;border-radius:12px;background:var(--purple);color:white;padding:14px;font-weight:750;margin-top:14px}
+.secondary{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px;font-weight:650}
+.qr{display:block;width:min(100%,360px);margin:10px auto;border-radius:8px;border:1px solid var(--line)}
+.hidden{display:none!important}.notice{background:#fff8e8;border:1px solid #f2dfb0;border-radius:12px;padding:12px;color:#71531b;font-size:13px;line-height:1.6}
+.wallet-number{font-size:22px;font-weight:800;letter-spacing:1px;margin:8px 0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:12px 20px 30px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">ZZM.</div>
+  <h1>ZoulZen Memory</h1>
+  <p>ขอบคุณที่สนับสนุนผลงานของเรา ❤️</p>
+</header>
+<main>
+  <section class="card">
+    <h2>เลือกจำนวนเงินที่ต้องการสนับสนุน</h2>
+    <div class="amounts">
+      <button class="amount active" data-value="20">20 ฿</button>
+      <button class="amount" data-value="50">50 ฿</button>
+      <button class="amount" data-value="100">100 ฿</button>
+      <button class="amount" data-value="200">200 ฿</button>
+    </div>
+    <input id="customAmount" type="number" min="1" max="100000" placeholder="หรือกรอกจำนวนเงินเอง (บาท)">
+  </section>
+
+  <section class="card">
+    <h2>เลือกช่องทางชำระเงิน</h2>
+    <label class="method"><input type="radio" name="pay" value="promptpay" checked><span><strong>ธนาคาร / PromptPay (KBank)</strong><small>สแกน QR ด้านล่างได้จากแอปธนาคาร</small></span></label>
+    <label class="method"><input type="radio" name="pay" value="wallet"><span><strong>TrueMoney Wallet</strong><small>โอนผ่านแอป TrueMoney</small></span></label>
+    <div id="promptpay">
+      <img class="qr" src="assets/promptpay-qr.jpg" alt="PromptPay QR สำหรับสนับสนุน ZoulZen Memory">
+      <p class="sub" style="text-align:center">สแกน QR แล้วตรวจสอบชื่อผู้รับให้ถูกต้องก่อนยืนยันการโอน<br>หาก QR ไม่รองรับการระบุยอด ให้กรอกจำนวนเงินที่เลือกไว้เอง</p>
+    </div>
+    <div id="wallet" class="hidden" style="text-align:center;padding:16px 4px">
+      <p class="sub">หมายเลข TrueMoney Wallet</p>
+      <div class="wallet-number" id="walletNumber">0955374007</div>
+      <button class="secondary" id="copyWallet">คัดลอกหมายเลข</button>
+      <p class="sub">ก่อนโอน โปรดตรวจสอบชื่อบัญชีผู้รับในแอปให้ถูกต้อง</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>ส่งข้อความถึงครีเอเตอร์ (ไม่บังคับ)</h2>
+    <input id="nickname" type="text" maxlength="40" placeholder="ชื่อที่ต้องการให้แสดง (เว้นว่างได้)">
+    <input id="message" type="text" maxlength="180" placeholder="ข้อความให้กำลังใจ">
+    <p class="sub">การแสดงชื่อและข้อความจะทำได้เมื่อเจ้าของช่องตรวจสอบและอนุมัติรายการแล้ว</p>
+    <div class="notice"><strong>ข้อควรรู้:</strong> เว็บไซต์เวอร์ชันนี้เป็นหน้าแสดงช่องทางโอนเงินเท่านั้น ยังไม่มีระบบส่งสลิปเข้าหาเจ้าของช่อง ฐานข้อมูล หรือการอัปเดตอันดับอัตโนมัติ กรุณาติดต่อเจ้าของช่องผ่านช่องทางที่ตกลงกันเพื่อแจ้งการโอน และอย่าส่งข้อมูลบัญชีหรือรหัสผ่าน</div>
+  </section>
+  <button class="primary" id="summary">แสดงสรุปรายการก่อนโอน</button>
+  <section class="card hidden" id="result" aria-live="polite">
+    <h2>สรุปรายการ</h2>
+    <p id="summaryText"></p>
+    <p class="sub">เมื่อโอนแล้ว ให้เก็บหลักฐานไว้และแจ้งเจ้าของช่องเพื่อยืนยันยอด ไม่มีการตัดเงินจากหน้านี้</p>
+  </section>
+</main>
+<footer>ZZM. · ZoulZen Memory<br>สนับสนุนตามความสมัครใจ</footer>
+<script>
+const buttons=[...document.querySelectorAll('.amount')];
+let selected='20';
+buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');selected=b.dataset.value;document.querySelector('#customAmount').value='';}));
+document.querySelector('#customAmount').addEventListener('input',()=>{buttons.forEach(x=>x.classList.remove('active'));selected='';});
+document.querySelectorAll('input[name=pay]').forEach(r=>r.addEventListener('change',()=>{
+ const wallet=r.value==='wallet'&&r.checked;
+ document.querySelector('#wallet').classList.toggle('hidden',!wallet);
+ document.querySelector('#promptpay').classList.toggle('hidden',wallet);
+}));
+document.querySelector('#copyWallet').addEventListener('click',async()=>{
+ try{await navigator.clipboard.writeText('0955374007');document.querySelector('#copyWallet').textContent='คัดลอกแล้ว';}
+ catch(e){alert('ไม่สามารถคัดลอกอัตโนมัติได้ กรุณากดค้างที่หมายเลขเพื่อคัดลอก');}
+});
+document.querySelector('#summary').addEventListener('click',()=>{
+ const custom=document.querySelector('#customAmount').value;
+ const amount=custom||selected;
+ if(!amount||Number(amount)<1||Number(amount)>100000||!Number.isInteger(Number(amount))){alert('กรุณาเลือกหรือกรอกจำนวนเงิน 1–100,000 บาท');return;}
+ const method=document.querySelector('input[name=pay]:checked').value==='wallet'?'TrueMoney Wallet':'KBank / PromptPay';
+ const name=document.querySelector('#nickname').value.trim()||'ไม่ระบุชื่อ';
+ const msg=document.querySelector('#message').value.trim();
+ document.querySelector('#summaryText').textContent=`จำนวน ${amount} บาท · ช่องทาง ${method} · ชื่อแสดง ${name}`+(msg?` · ข้อความ: ${msg}`:'');
+ document.querySelector('#result').classList.remove('hidden');
+ document.querySelector('#result').scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>
